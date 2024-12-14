@@ -15,8 +15,8 @@ import ChatMisaka from './components/ChatMisaka.vue';
 import LoginButton from './components/RelayWrite/LoginButton.vue';
 // other components
 import { Icon } from '@iconify/vue';
+import {useStore} from "vuex";
 </script>
-
 <template>
   <vue-danmaku
     v-model:danmus="danmu.danmus"
@@ -56,6 +56,7 @@ import { Icon } from '@iconify/vue';
         <RouterLink to="/links">友情链接</RouterLink>
       </LinksWrapper>
     </template>
+
     <AppTopAppBar :backToTop="backToTop">
       <template #navBtns>
         <button
@@ -89,11 +90,16 @@ import { Icon } from '@iconify/vue';
           </a>
         </div>
       </template>
+
+
       <template #actionBtns>
+
+<!--          <div>欢迎 邮箱用户  {{ store.state.user?.loginUser?.userName ?? "未登录" }} </div>-->
         <MusicSwitcher></MusicSwitcher>
         <ThemeSwitcher></ThemeSwitcher>
         <LoginButton></LoginButton>
       </template>
+
       <RouterView :cdnRootUrl="cdnRootUrl"></RouterView>
       <AppFooter></AppFooter>
       <DanmuSwitcher
@@ -105,13 +111,13 @@ import { Icon } from '@iconify/vue';
         <Icon icon="material-symbols:straight" width="24" height="24" />
       </button>
     </AppTopAppBar>
+
   </AppNavDrawer>
 </template>
 
 <script lang="ts">
 import axios from 'axios';
-import vueDanmaku from 'vue3-danmaku';
-
+import { mapGetters, useStore } from 'vuex';
 export default {
   provide() {
     return {
@@ -124,6 +130,10 @@ export default {
         ? 'material-symbols:menu-open'
         : 'material-symbols:menu';
     },
+      // 使用 mapGetters 映射 getter
+      ...mapGetters({
+          loginxEm: 'getLoginx', // 这里的 'getLoginx' 是 Vuex 中定义的 getter
+      }),
   },
   created() {
     this.danmu.toggleDanmu =

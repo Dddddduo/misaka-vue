@@ -8,6 +8,7 @@ import { Icon } from '@iconify/vue';
     <Icon icon="material-symbols:login" width="24" height="24" />
   </button>
 </template>
+
 <script lang="ts">
 import Login from './Login.vue';
 export default {
